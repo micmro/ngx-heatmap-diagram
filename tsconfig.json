@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "heatmap-diagram": [
+        "dist/heatmap-diagram"
+      ],
+      "heatmap-diagram/*": [
+        "dist/heatmap-diagram/*"
+      ]
+    }
   }
 }

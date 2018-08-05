@@ -121,6 +121,46 @@
           }
         }
       }
+    },
+    "heatmap-diagram": {
+      "root": "projects/heatmap-diagram",
+      "sourceRoot": "projects/heatmap-diagram/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/heatmap-diagram/tsconfig.lib.json",
+            "project": "projects/heatmap-diagram/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/heatmap-diagram/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/heatmap-diagram/src/test.ts",
+            "tsConfig": "projects/heatmap-diagram/tsconfig.spec.json",
+            "karmaConfig": "projects/heatmap-diagram/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/heatmap-diagram/tsconfig.lib.json",
+              "projects/heatmap-diagram/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-heatmap-diagram-example-app"
