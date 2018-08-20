@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+}
+
+svg {
+    width: 100%;
+}
+svg rect {
+    fill: #00f;
+}
+
+svg g rect {
+    fill: #0f0;
+}
