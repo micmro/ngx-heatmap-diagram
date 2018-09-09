@@ -9,7 +9,7 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -98,7 +98,7 @@
     "ngx-heatmap-diagram-example-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -127,17 +127,12 @@
       "sourceRoot": "projects/heatmap-diagram/src",
       "projectType": "library",
       "prefix": "ngx",
-      "architect": {
+      "targets": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "projects/heatmap-diagram/tsconfig.lib.json",
             "project": "projects/heatmap-diagram/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "projects/heatmap-diagram/ng-package.prod.json"
-            }
           }
         },
         "test": {
