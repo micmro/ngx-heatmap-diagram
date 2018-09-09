@@ -158,5 +158,10 @@
       }
     }
   },
-  "defaultProject": "ngx-heatmap-diagram-example-app"
+  "defaultProject": "ngx-heatmap-diagram",
+  "schematics": {
+    "@schematics/angular:component": {
+      "changeDetection": "OnPush"
+    }
+  }
 }
