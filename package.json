@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "build_lib": "ng build heatmap-diagram --watch",
-    "test": "ng test",
+    "build_lib:prod": "ng build heatmap-diagram --prod",
+    "test": "ng test heatmap-diagram",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
