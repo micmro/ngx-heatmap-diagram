@@ -1,6 +1,7 @@
 
 <svg>
   <rect class="bg" [attr.width]="'100%'" [attr.heitgh]="'100%'"></rect>
+  <g ngx-svg-legend-label *ngFor="let label of (data | async).labels; let i = index; trackBy: trackByFn" [label]="label" [x]="0" [y]="i"></g>
   <g ngx-svg-entries *ngFor="let entry of (data | async).entries; let i = index; trackBy: trackByFn" [entry]="entry" [xIndex]="i">
   </g>
 </svg>
