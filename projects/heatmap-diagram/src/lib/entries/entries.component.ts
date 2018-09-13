@@ -6,7 +6,7 @@ import { TimeSlice } from '../heatmap-data';
   selector: '[ngx-svg-entries]',
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntriesComponent implements OnInit {
   @Input() entry: TimeSlice;
