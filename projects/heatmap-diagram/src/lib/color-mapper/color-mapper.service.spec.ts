@@ -77,7 +77,7 @@ describe('ColorMapperService', () => {
 
   });
 
-  fdescribe('#createMap', () => {
+  describe('#createMap', () => {
     it('Creates steps from one color to another', () => {
       expect(service.createMap('rgb(10 ,8 ,40)', 'rgb(40, 11, 10)', 4)).toEqual([
         {r: 10, g: 8, b: 40, a: 1},

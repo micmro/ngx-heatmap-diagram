@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HeatmapData, Lable, TimeSlice } from 'heatmap-diagram';
+import { HeatmapData, Label, TimeSlice } from 'heatmap-diagram';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ export class MockDataService {
     * Generates random data
     * @param intervalMs - interval (in milliseconds) in which to emit values
     * @param returnHistoricTimeslices = number of historic Timeslices to emit from initial emission
-    * @param legendNames - Lables to show (also impacts the number of rows)
+    * @param legendNames - Labels to show (also impacts the number of rows)
     * @param maxTimeSlices - Maximum number of slices to return (e.g. when more aggregate over time)
     */
   getData(
@@ -34,15 +34,15 @@ export class MockDataService {
   private getBase(legendNames: string[], emissions: number, intervalMs: number): HeatmapData {
     const endTime = new Date();
     const startTime = new Date(endTime.getTime() - (emissions * intervalMs));
-    const lables = legendNames.map(name => ({ name }));
+    const labels = legendNames.map(name => ({ name }));
     return {
       startTime,
       endTime,
-      lables,
+      labels,
       entries: new Array(emissions - 1)
         .fill(undefined)
         .map((v, i) => this.makeTimeSlice(
-          lables,
+          labels,
           `Value ${emissions - (i + 1)}`
         ))
     };
@@ -54,20 +54,20 @@ export class MockDataService {
       startTime = new Date(startTime.getTime() - intervalMs);
     }
     base.endTime = new Date();
-    base.entries.unshift(this.makeTimeSlice(base.lables, `Value ${emissions}`));
+    base.entries.unshift(this.makeTimeSlice(base.labels, `Value ${emissions}`));
     return {
       ...base,
 
     };
   }
 
-  private makeTimeSlice(legendNames: Lable[], timeLable: string): TimeSlice {
+  private makeTimeSlice(legendNames: Label[], timeLabel: string): TimeSlice {
     return {
-      buckets: legendNames.map(lable => ({
+      buckets: legendNames.map(label => ({
         value: Math.round(Math.random() * 1000),
-        lable: lable.name})
+        label: label.name})
       ),
-      timeLable
+      timeLabel
     };
   }
 }

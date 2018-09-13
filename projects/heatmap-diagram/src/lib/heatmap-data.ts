@@ -4,12 +4,12 @@
 export interface HeatmapData {
     startTime: Date;
     endTime: Date;
-    /** Lables to show for each bucket in entire need to have the same order as `TimeSlice.buckets` in `entries` */
-    lables: Lable[];
+    /** Labels to show for each bucket in entire need to have the same order as `TimeSlice.buckets` in `entries` */
+    labels: Label[];
     entries: TimeSlice[];
 }
 
-export interface Lable {
+export interface Label {
     name: string;
 }
 
@@ -17,13 +17,13 @@ export interface Lable {
  * Represents a Slice of Time (a snapshot the values at a specific time) to be shown in the diagram
  */
 export interface TimeSlice {
-    /** Values, need to have the same order as `HeatmapData.lables` */
+    /** Values, need to have the same order as `HeatmapData.labels` */
     buckets: Bucket[];
     /**
-     * What lable to show on the time-axis
+     * What label to show on the time-axis
      * If not set this get's auto-calculated via `startTime` and `endTime` in `HeatmapData`
      */
-    timeLable?: string;
+    timeLabel?: string;
 }
 
 /**
@@ -31,5 +31,5 @@ export interface TimeSlice {
  */
 export interface Bucket {
     value: number;
-    lable?: string;
+    label?: string;
 }

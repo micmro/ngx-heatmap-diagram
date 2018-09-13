@@ -1,7 +1,7 @@
 
 <svg:g *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn">
-    <svg:rect [attr.x]="(xIndex * 15)" [attr.y]="(yIndex * 15)" [attr.width]="10" [attr.height]="10"></svg:rect>
+    <svg:rect [attr.x]="(xIndex * 15)" [attr.y]="(yIndex * 15)" [attr.width]="10" [attr.height]="10" [title]="bucket.label"></svg:rect>
 </svg:g>
 <svg:g>
-  <svg:text [attr.y]="entry.buckets.length * 15" [attr.x]="(xIndex * 15)">{{entry.timeLable}}</svg:text>
+  <svg:text [attr.y]="entry.buckets.length * 15" [attr.x]="(xIndex * 15)">{{entry.timeLabel}}</svg:text>
 </svg:g>
