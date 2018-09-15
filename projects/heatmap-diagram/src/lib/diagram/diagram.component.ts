@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HeatmapData } from '../heatmap-data';
+import { HeatmapData } from '../heatmap-interface';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-diagram',
@@ -8,13 +9,10 @@ import { HeatmapData } from '../heatmap-data';
   styleUrls: ['./diagram.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DiagramComponent implements OnInit {
+export class DiagramComponent {
   @Input() data: Observable<HeatmapData>;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   trackByFn(index: number) {
     return index;

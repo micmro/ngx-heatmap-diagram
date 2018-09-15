@@ -1,5 +1,16 @@
 
-<svg:g *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn">
-    <svg:rect [attr.x]="(xIndex * 15)" [attr.y]="(yIndex * 15)" [attr.width]="10" [attr.height]="10" [title]="bucket.label"></svg:rect>
+<svg:rect
+  *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn"
+  [attr.x]="(xIndex * 15)"
+  [attr.y]="(yIndex * 15)"
+  [attr.width]="10"
+  [attr.height]="10"
+  [title]="bucket.label">
+</svg:rect>
+<svg:g
+  ngx-svg-time-label
+  class="timeslice-label"
+  [x]="(xIndex * 15)"
+  [y]="(entry.buckets.length * 15)"
+  [label]="entry.timeLabel">
 </svg:g>
-<svg:g ngx-svg-time-label [x]="(xIndex * 15)" [y]="(entry.buckets.length * 15)" [label]="entry.timeLabel"></svg:g>

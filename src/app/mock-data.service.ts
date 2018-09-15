@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HeatmapData, Label, TimeSlice } from 'heatmap-diagram';
 import { Observable, timer } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, share } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +26,12 @@ export class MockDataService {
   ): Observable<HeatmapData> {
     const initialTimeSliceCount = Math.min(returnHistoricTimeslices, maxTimeSlices);
     const base = this.getBase(legendNames, initialTimeSliceCount, intervalMs);
-    return timer(10, intervalMs).pipe(
-      map(i => this.makeNewEmission(base, initialTimeSliceCount + i, intervalMs, maxTimeSlices))
+    return timer(200, intervalMs).pipe(
+      tap(i => {
+        console.log(`Create mock-data emission No.${i}`);
+      }),
+      map(i => this.makeNewEmission(base, initialTimeSliceCount + i, intervalMs, maxTimeSlices)),
+      share()
     );
   }
 
@@ -56,8 +60,7 @@ export class MockDataService {
     base.endTime = new Date();
     base.entries.unshift(this.makeTimeSlice(base.labels, `Value ${emissions}`));
     return {
-      ...base,
-
+      ...base
     };
   }
 
@@ -65,8 +68,8 @@ export class MockDataService {
     return {
       buckets: legendNames.map(label => ({
         value: Math.round(Math.random() * 1000),
-        label: label.name})
-      ),
+        label: label.name
+      })),
       timeLabel
     };
   }

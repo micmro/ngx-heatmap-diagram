@@ -3,9 +3,10 @@ import { HeatmapDiagramComponent } from './heatmap-diagram.component';
 import { DiagramComponent } from './diagram/diagram.component';
 import { EntriesComponent } from './entries/entries.component';
 import { CommonModule } from '@angular/common';
-import { ColorMapperService } from './color-mapper/color-mapper.service';
+import { ColorMapperService } from './services/color-mapper.service';
 import { TimeLabelComponent } from './time-label/time-label.component';
 import { LegendLabelComponent } from './legend-label/legend-label.component';
+import { HeatmapDataService } from './services/heatmap-data.service';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { LegendLabelComponent } from './legend-label/legend-label.component';
     LegendLabelComponent
   ],
   providers: [
-    ColorMapperService
+    ColorMapperService,
+    HeatmapDataService
   ],
   exports: [
     HeatmapDiagramComponent

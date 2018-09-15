@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntriesComponent } from './entries.component';
+import { TimeLabelComponent } from '../time-label/time-label.component';
 
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
@@ -8,7 +9,7 @@ describe('EntriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntriesComponent ]
+      declarations: [ EntriesComponent, TimeLabelComponent ]
     })
     .compileComponents();
   }));
@@ -16,6 +17,9 @@ describe('EntriesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EntriesComponent);
     component = fixture.componentInstance;
+    component.entry = {
+      buckets: []
+    };
     fixture.detectChanges();
   });
 

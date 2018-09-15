@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RGBA } from './color-mapper';
+import { RGBA } from './color-mapper-interface';
 
 @Injectable({
   providedIn: 'root'

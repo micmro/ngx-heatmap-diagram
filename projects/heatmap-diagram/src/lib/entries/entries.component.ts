@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { TimeSlice } from '../heatmap-data';
+import { TimeSlice } from '../heatmap-interface';
 
 @Component({
   /* tslint:disable:component-selector */
@@ -11,6 +11,7 @@ import { TimeSlice } from '../heatmap-data';
 export class EntriesComponent implements OnInit {
   @Input() entry: TimeSlice;
   @Input() xIndex: number;
+  // @Input() startTime: Date?;
 
   constructor() { }
 

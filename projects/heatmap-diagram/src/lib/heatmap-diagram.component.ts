@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HeatmapData } from './heatmap-data';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { HeatmapData } from './heatmap-interface';
+import { map, filter, share, tap } from 'rxjs/operators';
+import { HeatmapDataService } from './services/heatmap-data.service';
 
 @Component({
   selector: 'ngx-heatmap-diagram',
@@ -17,10 +18,11 @@ export class HeatmapDiagramComponent implements OnInit {
   /** The maximum amount of time-slices to show in the diagram (optional) */
   @Input() maxTimeSlices?: number;
   // TODO: make colors configurable
+  // TODO: allow fixed max/min of colors
 
   innerData$: Observable<HeatmapData>;
 
-  constructor() {
+  constructor(private dataService: HeatmapDataService) {
   }
 
   ngOnInit() {
@@ -28,19 +30,7 @@ export class HeatmapDiagramComponent implements OnInit {
       throw Error(`'data' parameter is not set`);
     }
     this.innerData$ = this.data.pipe(
-      map(this.sliceMaxTime)
+      map(d => this.dataService.validateAndFill(d, this.maxTimeSlices))
     );
-  }
-
-  sliceMaxTime(input: HeatmapData): HeatmapData {
-    if (this.maxTimeSlices === undefined || input.entries.length <= this.maxTimeSlices) {
-      return input;
-    }
-    const interval = (input.endTime.getTime() - input.startTime.getTime()) / input.entries.length;
-    return {
-      ...input,
-      startTime: new Date(input.endTime.getTime() - (this.maxTimeSlices * interval)),
-      entries: input.entries.slice(0,  this.maxTimeSlices)
-    };
   }
 }

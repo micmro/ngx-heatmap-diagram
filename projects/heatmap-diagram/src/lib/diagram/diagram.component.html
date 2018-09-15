@@ -1,7 +1,22 @@
 
+
 <svg>
-  <rect class="bg" [attr.width]="'100%'" [attr.heitgh]="'100%'"></rect>
-  <g ngx-svg-legend-label *ngFor="let label of (data | async).labels; let i = index; trackBy: trackByFn" [label]="label" [x]="0" [y]="i"></g>
-  <g ngx-svg-entries *ngFor="let entry of (data | async).entries; let i = index; trackBy: trackByFn" [entry]="entry" [xIndex]="i">
-  </g>
+  <rect class="bg" [attr.width]="'100%'" [attr.height]="'100%'"></rect>
+  <ng-container *ngIf="data | async; let values;">
+    <g class="labels">
+      <g ngx-svg-legend-label
+        *ngFor="let label of values.labels; let i = index; trackBy: trackByFn"
+        [label]="label"
+        [x]="0"
+        [y]="i">
+      </g>
+    </g>
+    <g class="entries">
+      <g ngx-svg-entries
+        *ngFor="let entry of values.entries; let i = index; trackBy: trackByFn"
+        [entry]="entry"
+        [xIndex]="i">
+      </g>
+    </g>
+  </ng-container>
 </svg>
