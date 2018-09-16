@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, isObservable } from 'rxjs';
 import { HeatmapData } from './heatmap-interface';
-import { map, filter, share, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HeatmapDataService } from './services/heatmap-data.service';
+import { InvaidDataParameterError } from './errors-interface';
 
 @Component({
   selector: 'ngx-heatmap-diagram',
@@ -26,8 +27,8 @@ export class HeatmapDiagramComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.data === undefined) {
-      throw Error(`'data' parameter is not set`);
+    if (!isObservable(this.data)) {
+      throw InvaidDataParameterError;
     }
     this.innerData$ = this.data.pipe(
       map(d => this.dataService.validateAndFill(d, this.maxTimeSlices))

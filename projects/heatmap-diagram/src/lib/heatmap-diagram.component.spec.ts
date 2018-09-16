@@ -6,6 +6,7 @@ import { makeHeatmapData } from './mocks/heatmap-data.mocks.spec';
 import { HeatmapDiagramModule } from './heatmap-diagram.module';
 import { HeatmapData } from './heatmap-interface';
 import { DebugElement } from '@angular/core';
+import { InvaidDataParameterError } from './errors-interface';
 
 describe('HeatmapDiagramComponent', () => {
   let component: HeatmapDiagramComponent;
@@ -37,6 +38,19 @@ describe('HeatmapDiagramComponent', () => {
     component.data = of<HeatmapData>(makeHeatmapData([]));
     fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it(`throws 'InvaidDataParameter' when data is not set`, () => {
+    expect(() => {
+      fixture.detectChanges();
+    }).toThrow(InvaidDataParameterError);
+  });
+
+  it(`throws 'InvaidDataParameter' when data is not an Observable`, () => {
+    component.data = {} as any;
+    expect(() => {
+      fixture.detectChanges();
+    }).toThrow(InvaidDataParameterError);
   });
 
   it(`'maxTimeSlices' reduces displayed items`, () => {

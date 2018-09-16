@@ -2,10 +2,13 @@
  * Interface an emission needs to provide
  */
 export interface HeatmapData {
+    /** Timestamp of the oldest `TimeSlice`  (last in `entries`) */
     startTime: Date;
+    /** Timestamp of the newest `TimeSlice` (first in `entries`) */
     endTime: Date;
     /** Labels to show for each bucket in entire need to have the same order as `TimeSlice.buckets` in `entries` */
     labels: Label[];
+    /** `TimeSlice`s _(Columns in Heatmap)_ to show, going from newest (`endTime`) to oldest (`startTime`) `TimeSlice` */
     entries: TimeSlice[];
 }
 
