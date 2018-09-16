@@ -11,6 +11,7 @@ describe('HeatmapDiagramComponent', () => {
   let component: HeatmapDiagramComponent;
   let fixture: ComponentFixture<HeatmapDiagramComponent>;
   let de: DebugElement;
+  let ne: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,6 +24,7 @@ describe('HeatmapDiagramComponent', () => {
     fixture = TestBed.createComponent(HeatmapDiagramComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+    ne = fixture.nativeElement;
   });
 
   it('should create', () => {
@@ -37,12 +39,14 @@ describe('HeatmapDiagramComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('maxTimeSlices reduces displayed items', () => {
+  it(`'maxTimeSlices' reduces displayed items`, () => {
+    const maxTimeSlices = 4;
     component.data = of<HeatmapData>(makeHeatmapData([[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]));
-    component.maxTimeSlices = 4;
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
-    const xx = fixture.nativeElement.querySelector('h1');
+    component.maxTimeSlices = maxTimeSlices;
 
+    fixture.detectChanges();
+
+    const entries = ne.querySelectorAll('.entries > g');
+    expect(entries.length).toBe(maxTimeSlices);
   });
 });
