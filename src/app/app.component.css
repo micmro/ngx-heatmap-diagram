@@ -1,0 +1,7 @@
+h1 {
+  font-family: sans-serif;
+}
+::ng-deep ngx-diagram svg {
+  border: solid 1px #ddd;
+  background: #fff;
+}

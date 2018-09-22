@@ -7,8 +7,6 @@ import { MockDataService } from './mock-data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ngx-heatmap-diagram-example-app';
-
   constructor(public mockData: MockDataService) {
   }
 }
