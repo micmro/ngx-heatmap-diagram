@@ -26,7 +26,7 @@ export class ColorMapperService {
       r: this.getStep(a.r, b.r, i, steps),
       g: this.getStep(a.g, b.g, i, steps),
       b: this.getStep(a.b, b.b, i, steps),
-      a: this.getStep(a.a, b.a, i, steps)
+      a: this.getStep(a.a, b.a, i, steps, true)
     }));
   }
 
@@ -62,12 +62,16 @@ export class ColorMapperService {
   /**
    * Caluclates a step value between `a` and `b`
    */
-  private getStep(a: number, b: number, index: number, steps: number): number {
+  private getStep(a: number, b: number, index: number, steps: number, isAlpha = false): number {
     if (a === b) {
       return a;
     }
     const diff = b - a;
-    return Math.round(a + (diff / (steps - 1) * index));
+    const step = a + (diff / (steps - 1) * index);
+    if (isAlpha) {
+      return Math.round(step * 10) / 10;
+    }
+    return Math.round(step);
   }
 
   /**
