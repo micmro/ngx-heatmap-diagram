@@ -4,6 +4,7 @@ import { HeatmapData } from './heatmap-interface';
 import { map } from 'rxjs/operators';
 import { HeatmapDataService } from './services/heatmap-data.service';
 import { InvaidDataParameterError } from './errors-interface';
+import { HeatmapDataInternal } from './heatmap-data-internal-interface';
 
 @Component({
   selector: 'ngx-heatmap-diagram',
@@ -18,10 +19,14 @@ export class HeatmapDiagramComponent implements OnInit {
   @Input() data: Observable<HeatmapData>;
   /** The maximum amount of time-slices to show in the diagram (optional) */
   @Input() maxTimeSlices?: number;
-  // TODO: make colors configurable
-  // TODO: allow fixed max/min of colors
+  /** Color to use for the smalles value visible in the diagram (hex, rgb or rgba CSS color syntax) */
+  @Input() minValueColor = '#f00';
+  /** Color to use for the largest value visible in the diagram (hex, rgb or rgba CSS color syntax) */
+  @Input() maxValueColor = '#00f';
+  /** Number of color-gradients to show between min and max value */
+  @Input() colorSteps = 6;
 
-  innerData$: Observable<HeatmapData>;
+  innerData$: Observable<HeatmapDataInternal>;
 
   constructor(private dataService: HeatmapDataService) {
   }
@@ -31,7 +36,13 @@ export class HeatmapDiagramComponent implements OnInit {
       throw InvaidDataParameterError;
     }
     this.innerData$ = this.data.pipe(
-      map(d => this.dataService.validateAndFill(d, this.maxTimeSlices))
+      map(emission => this.dataService.validateAndFill(
+        emission,
+        this.minValueColor,
+        this.maxValueColor,
+        this.colorSteps,
+        this.maxTimeSlices
+      ))
     );
   }
 }

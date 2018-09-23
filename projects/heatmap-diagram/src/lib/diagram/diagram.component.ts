@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HeatmapData } from '../heatmap-interface';
-import { share } from 'rxjs/operators';
+import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 
 @Component({
   selector: 'ngx-diagram',
@@ -10,7 +9,7 @@ import { share } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DiagramComponent {
-  @Input() data: Observable<HeatmapData>;
+  @Input() data: Observable<HeatmapDataInternal>;
 
   constructor() { }
 

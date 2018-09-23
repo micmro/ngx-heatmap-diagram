@@ -1,26 +1,35 @@
 import { Injectable, Input } from '@angular/core';
-import { HeatmapData } from '../heatmap-interface';
+import { HeatmapData, TimeSlice } from '../heatmap-interface';
 import { StartOrEndTimeInvalidError, EndBeforeStartTimeError, InvalidEntriesError } from '../errors-interface';
 import { isArray } from 'util';
+import { ColorMapperService } from './color-mapper.service';
+import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeatmapDataService {
 
-  constructor() { }
+  constructor(protected colorMapperService: ColorMapperService) { }
 
-  validateAndFill(input: HeatmapData, maxTimeSlices?: number): HeatmapData {
+  validateAndFill(
+    input: HeatmapData,
+    minValueColor: string,
+    maxValueColor: string,
+    colorSteps: number,
+    maxTimeSlices?: number
+  ): HeatmapDataInternal {
     this.validateData(input);
+    const sizedInput = this.sliceToMatchMaxTimeSlices(input, maxTimeSlices);
+    return  this.setColors(sizedInput, minValueColor, maxValueColor, colorSteps);
+  }
 
+  /** Cuts off old times if `maxTimeSlices` is set */
+  private sliceToMatchMaxTimeSlices(input: HeatmapData, maxTimeSlices: number): HeatmapData {
     if (maxTimeSlices === undefined || input.entries.length <= maxTimeSlices) {
       return input;
     }
-    console.log('validateAndFill', maxTimeSlices, input);
-    return this.sliceMaxTime(input, maxTimeSlices);
-  }
 
-  private sliceMaxTime(input: HeatmapData, maxTimeSlices: number): HeatmapData {
     const interval = (input.endTime.getTime() - input.startTime.getTime()) / input.entries.length;
     const startTime = new Date(input.endTime.getTime() - (maxTimeSlices * interval));
     const entries = input.entries.slice(0, maxTimeSlices);
@@ -30,6 +39,32 @@ export class HeatmapDataService {
       startTime,
       entries
     };
+  }
+
+  private setColors(input: HeatmapData, minValueColor: string, maxValueColor: string, colorSteps: number): HeatmapDataInternal {
+    const extrems = this.maxMin(input.entries);
+    const colors = this.colorMapperService.createMap(
+      minValueColor,
+      maxValueColor,
+      colorSteps
+    );
+
+    return {
+      ...input,
+      colors,
+      minValue: extrems.min,
+      maxValue: extrems.max
+    };
+  }
+
+  private maxMin(entries: TimeSlice[]): { min: number, max: number } {
+    return entries.reduce((acc, curr) => {
+        curr.buckets.forEach(b => {
+          acc.max = Math.max(acc.max, b.value);
+          acc.min = Math.min(acc.min, b.value);
+        });
+        return acc;
+    }, { min: 0, max: 0 });
   }
 
   /** Throws error if data is invalid */

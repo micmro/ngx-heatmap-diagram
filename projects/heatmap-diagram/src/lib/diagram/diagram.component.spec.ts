@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DiagramComponent } from './diagram.component';
-import { HeatmapDiagramModule } from '../heatmap-diagram.module';
+import { HeatmapDataInternal } from 'heatmap-diagram/lib/heatmap-data-internal-interface';
 import { of } from 'rxjs';
-import { HeatmapData } from '../heatmap-interface';
-import { get3TimeSlice2RowBasicHeatmapData, makeHeatmapData } from '../mocks/heatmap-data.mocks.spec';
+import { HeatmapDiagramModule } from '../heatmap-diagram.module';
+import { get3TimeSlice2RowBasicHeatmapDataInternal, makeHeatmapDataInternal } from '../mocks/heatmap-data.mocks.spec';
+import { DiagramComponent } from './diagram.component';
 
 describe('DiagramComponent', () => {
   let component: DiagramComponent;
@@ -21,13 +21,13 @@ describe('DiagramComponent', () => {
   });
 
   it('should create', () => {
-    component.data = of<HeatmapData>(get3TimeSlice2RowBasicHeatmapData());
+    component.data = of<HeatmapDataInternal>(get3TimeSlice2RowBasicHeatmapDataInternal());
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('works with empty dats', () => {
-    component.data = of<HeatmapData>(makeHeatmapData([]));
+    component.data = of<HeatmapDataInternal>(makeHeatmapDataInternal([]));
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
