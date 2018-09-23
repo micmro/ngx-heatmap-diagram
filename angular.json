@@ -158,7 +158,7 @@
       }
     }
   },
-  "defaultProject": "ngx-heatmap-diagram",
+  "defaultProject": "heatmap-diagram",
   "schematics": {
     "@schematics/angular:component": {
       "changeDetection": "OnPush"
