@@ -9,7 +9,13 @@ import { HeatmapDataInternal } from './heatmap-data-internal-interface';
 @Component({
   selector: 'ngx-heatmap-diagram',
   template: `
-    <ngx-diagram [data]="innerData$"></ngx-diagram>
+    <ngx-diagram
+      [data]="innerData$"
+      [rowHeigth]="rowHeigth"
+      [columnWidth]="columnWidth"
+      [rowSpacing]="rowSpacing"
+      [columnSpacing]="columnSpacing">
+    </ngx-diagram>
   `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -25,6 +31,15 @@ export class HeatmapDiagramComponent implements OnInit {
   @Input() maxValueColor = '#00f';
   /** Number of color-gradients to show between min and max value */
   @Input() colorSteps = 6;
+  /** Height of a single row */
+  @Input() rowHeigth = 15;
+  /** Width of a single column */
+  @Input() columnWidth = 15;
+  /** Vertical spacing between rows (substracted from `rowHeigth`) */
+  @Input() rowSpacing = 5;
+  /** Horizontal spacing between columns (substracted from `columnWidth`) */
+  @Input() columnSpacing = 5;
+
 
   innerData$: Observable<HeatmapDataInternal>;
 

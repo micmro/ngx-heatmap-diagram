@@ -1,16 +1,17 @@
 
 <svg:rect
   *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn"
-  [attr.x]="(xIndex * 15)"
-  [attr.y]="(yIndex * 15)"
-  [attr.width]="10"
-  [attr.height]="10"
+  [attr.x]="(xIndex * columnWidth)"
+  [attr.y]="(yIndex * rowHeigth)"
+  [attr.width]="(columnWidth - columnSpacing)"
+  [attr.height]="(rowHeigth - rowSpacing)"
   [title]="bucket.label">
 </svg:rect>
 <svg:g
   ngx-svg-time-label
+  *ngIf="label"
   class="timeslice-label"
-  [x]="(xIndex * 15)"
-  [y]="(entry.buckets.length * 15)"
-  [label]="entry.timeLabel">
+  [x]="(xIndex * columnWidth)"
+  [y]="labelY"
+  [label]="label">
 </svg:g>

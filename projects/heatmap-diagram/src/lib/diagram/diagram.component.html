@@ -7,14 +7,18 @@
         *ngFor="let label of values.labels; let i = index; trackBy: trackByFn"
         [label]="label.name"
         [x]="0"
-        [y]="i*15">
+        [y]="i*rowHeigth">
       </g>
     </g>
     <g class="entries">
       <g ngx-svg-entries
         *ngFor="let entry of values.entries; let i = index; trackBy: trackByFn"
         [entry]="entry"
-        [xIndex]="i">
+        [xIndex]="i"
+        [rowHeigth]="rowHeigth"
+        [columnWidth]="columnWidth"
+        [rowSpacing]="rowSpacing"
+        [columnSpacing]="columnSpacing">
       </g>
     </g>
   </ng-container>

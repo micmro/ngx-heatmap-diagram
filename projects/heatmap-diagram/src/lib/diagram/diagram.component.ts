@@ -10,6 +10,10 @@ import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 })
 export class DiagramComponent {
   @Input() data: Observable<HeatmapDataInternal>;
+  @Input() rowHeigth: number;
+  @Input() columnWidth: number;
+  @Input() rowSpacing: number;
+  @Input() columnSpacing: number;
 
   constructor() { }
 
