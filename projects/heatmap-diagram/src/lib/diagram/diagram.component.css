@@ -5,10 +5,19 @@
 svg {
     width: 100%;
 }
+
 svg rect {
     fill: #00f;
 }
 
 svg g rect {
     fill: #0f0;
+}
+
+.labels {
+
+}
+
+.entries {
+  transform: translateX(90px);
 }

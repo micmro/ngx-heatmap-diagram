@@ -1,14 +1,13 @@
 
 
 <svg>
-  <rect class="bg" [attr.width]="'100%'" [attr.height]="'100%'"></rect>
   <ng-container *ngIf="data | async; let values;">
     <g class="labels">
       <g ngx-svg-legend-label
         *ngFor="let label of values.labels; let i = index; trackBy: trackByFn"
-        [label]="label"
+        [label]="label.name"
         [x]="0"
-        [y]="i">
+        [y]="i*15">
       </g>
     </g>
     <g class="entries">
