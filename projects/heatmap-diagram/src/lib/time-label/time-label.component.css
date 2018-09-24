@@ -1,6 +1,8 @@
+g {
+  transform: translate(-0.333em, 0.333em);
+}
 text {
   text-anchor: start;
-  transform-origin: -.5em -0.1em;
-  font-family: sans-serif;
-  font-size: 12px;
+  dominant-baseline: middle;
+  font-size: 1em;
 }

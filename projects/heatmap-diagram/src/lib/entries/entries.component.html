@@ -11,6 +11,7 @@
   ngx-svg-time-label
   *ngIf="label"
   class="timeslice-label"
+  [attr.transform]="'translate(' + ((columnWidth - columnSpacing)/2) + ' ' + rowSpacing +')'"
   [x]="(xIndex * columnWidth)"
   [y]="labelY"
   [label]="label">

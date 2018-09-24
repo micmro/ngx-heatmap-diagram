@@ -1,6 +1,6 @@
 g text {
-  dominant-baseline: text-before-edge;
-  font-size: 13px;
-  line-height: 13px;
-  font-family: sans-serif;
+  text-anchor: start;
+  dominant-baseline: middle;
+  font-size: 1.2em;
+  line-height: 1.2em;
 }

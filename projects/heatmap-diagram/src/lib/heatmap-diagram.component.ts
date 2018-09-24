@@ -17,7 +17,9 @@ import { HeatmapDataInternal } from './heatmap-data-internal-interface';
       [columnSpacing]="columnSpacing">
     </ngx-diagram>
   `,
-  styles: [],
+  styles: [
+    ':host { font-size: 12px; line-height: 12px; font-family: sans-serif; }'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeatmapDiagramComponent implements OnInit {
@@ -32,9 +34,9 @@ export class HeatmapDiagramComponent implements OnInit {
   /** Number of color-gradients to show between min and max value */
   @Input() colorSteps = 6;
   /** Height of a single row */
-  @Input() rowHeigth = 15;
+  @Input() rowHeigth = 20;
   /** Width of a single column */
-  @Input() columnWidth = 15;
+  @Input() columnWidth = 20;
   /** Vertical spacing between rows (substracted from `rowHeigth`) */
   @Input() rowSpacing = 5;
   /** Horizontal spacing between columns (substracted from `columnWidth`) */

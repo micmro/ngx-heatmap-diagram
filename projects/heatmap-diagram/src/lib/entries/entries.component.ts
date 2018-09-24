@@ -16,8 +16,8 @@ export class EntriesComponent implements OnChanges {
   @Input() time: Date;
   @Input() rowHeigth: number;
   @Input() columnWidth: number;
-  @Input() rowSpacing = 5;
-  @Input() columnSpacing = 5;
+  @Input() rowSpacing: number;
+  @Input() columnSpacing: number;
 
   labelY: number;
   label = '';
@@ -28,7 +28,8 @@ export class EntriesComponent implements OnChanges {
     const maybeEntry = this.getChangeValue<TimeSlice>(changes, 'entry');
     const maybeTime = this.getChangeValue<Date>(changes, 'time');
     const maybeRowHeigth =  this.getChangeValue<number>(changes, 'rowHeigth');
-    this.setLabelY(maybeEntry, maybeRowHeigth);
+    const maybeRowSpacing =  this.getChangeValue<number>(changes, 'rowSpacing');
+    this.setLabelY(maybeEntry, maybeRowHeigth, maybeRowSpacing);
     this.setLabel(maybeEntry, maybeTime);
   }
 
@@ -48,11 +49,16 @@ export class EntriesComponent implements OnChanges {
     }
   }
 
-  private setLabelY(maybeEntry?: TimeSlice, maybeRowHeigth?: number) {
+  private setLabelY(maybeEntry?: TimeSlice, maybeRowHeigth?: number, maybeRowSpacing?: number) {
     if (maybeEntry !== undefined) {
-      this.labelY = maybeEntry.buckets.length * (maybeRowHeigth !== undefined ? maybeRowHeigth : this.rowHeigth);
+      this.labelY = maybeEntry.buckets.length *
+        (maybeRowHeigth !== undefined ? maybeRowHeigth : this.rowHeigth) -
+        (maybeRowSpacing !== undefined ? maybeRowSpacing : this.rowSpacing);
     } else if (maybeRowHeigth !== undefined && this.entry) {
-      this.labelY = this.entry.buckets.length * maybeRowHeigth;
+      this.labelY = this.entry.buckets.length * maybeRowHeigth -
+      (maybeRowSpacing !== undefined ? maybeRowSpacing : this.rowSpacing);
+    } else if (maybeRowSpacing !== undefined && this.entry) {
+      this.labelY = this.entry.buckets.length * this.rowSpacing - maybeRowSpacing;
     }
   }
 

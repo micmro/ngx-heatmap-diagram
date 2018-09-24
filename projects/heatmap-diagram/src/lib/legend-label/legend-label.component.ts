@@ -10,6 +10,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 export class LegendLabelComponent implements OnInit {
   @Input() x: number;
   @Input() y: number;
+  @Input() height: number;
   @Input() label: string;
 
   constructor() { }
