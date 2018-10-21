@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { HeatmapDiagramComponent } from './heatmap-diagram.component';
 import { of } from 'rxjs';
@@ -53,14 +53,24 @@ describe('HeatmapDiagramComponent', () => {
     }).toThrow(InvaidDataParameterError);
   });
 
-  it(`'maxTimeSlices' reduces displayed items`, () => {
+  it(`renders items`, fakeAsync(() => {
+    const testData = [[1, 0], [2, 0], [3, 0]];
+    component.data = of<HeatmapData>(makeHeatmapData(testData));
+    fixture.detectChanges();
+    tick(); // allow `RowLegendComponent`'s `widthUpdated` to emit
+    fixture.detectChanges();
+    const entries = ne.querySelectorAll('.entries > g');
+    expect(entries.length).toBe(testData.length);
+  }));
+
+  it(`'maxTimeSlices' reduces displayed items`, fakeAsync(() => {
     const maxTimeSlices = 4;
     component.data = of<HeatmapData>(makeHeatmapData([[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]));
     component.maxTimeSlices = maxTimeSlices;
-
     fixture.detectChanges();
-
+    tick(); // allow `RowLegendComponent`'s `widthUpdated` to emit
+    fixture.detectChanges();
     const entries = ne.querySelectorAll('.entries > g');
     expect(entries.length).toBe(maxTimeSlices);
-  });
+  }));
 });

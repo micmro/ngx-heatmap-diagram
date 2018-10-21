@@ -15,6 +15,7 @@ export class RowLegendComponent implements AfterViewChecked {
   @ViewChild('legendLabel') legendLabel: ElementRef<SVGGElement>;
   @Output() widthUpdated = new EventEmitter<number>();
 
+  /** keeps track of the current with of the legend */
   legendWidth = 0;
 
   constructor() { }
