@@ -1,23 +1,21 @@
-import { NgModule } from '@angular/core';
-import { HeatmapDiagramComponent } from './heatmap-diagram.component';
-import { DiagramComponent } from './diagram/diagram.component';
-import { EntriesComponent } from './entries/entries.component';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { DiagramComponent } from './diagram/diagram.component';
+import { EntriesModule } from './entries/entries.module';
+import { HeatmapDiagramComponent } from './heatmap-diagram.component';
+import { RowLegendModule } from './row-legend/row-legend.module';
 import { ColorMapperService } from './services/color-mapper.service';
-import { TimeLabelComponent } from './time-label/time-label.component';
-import { LegendLabelComponent } from './legend-label/legend-label.component';
 import { HeatmapDataService } from './services/heatmap-data.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    RowLegendModule,
+    EntriesModule
   ],
   declarations: [
     HeatmapDiagramComponent,
-    DiagramComponent,
-    EntriesComponent,
-    TimeLabelComponent,
-    LegendLabelComponent
+    DiagramComponent
   ],
   providers: [
     ColorMapperService,

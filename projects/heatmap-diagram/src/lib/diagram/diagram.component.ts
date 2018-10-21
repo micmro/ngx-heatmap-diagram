@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 
@@ -15,7 +15,17 @@ export class DiagramComponent {
   @Input() rowSpacing: number;
   @Input() columnSpacing: number;
 
+  legendTransform = 'translate(0)';
+  legendStyle = {};
+  legendWidth = undefined;
+  hasLegendWidth = false;
+
   constructor() { }
+
+  setLegendWidth(legendWidth: number) {
+    this.hasLegendWidth = true;
+    this.legendWidth = legendWidth;
+  }
 
   trackByFn(index: number) {
     return index;

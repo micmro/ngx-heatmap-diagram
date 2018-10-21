@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HeatmapDataInternal } from 'heatmap-diagram/lib/heatmap-data-internal-interface';
 import { of } from 'rxjs';
 import { HeatmapDiagramModule } from '../heatmap-diagram.module';
 import { get3TimeSlice2RowBasicHeatmapDataInternal, makeHeatmapDataInternal } from '../mocks/heatmap-data.mocks.spec';
 import { DiagramComponent } from './diagram.component';
+import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 
 describe('DiagramComponent', () => {
   let component: DiagramComponent;

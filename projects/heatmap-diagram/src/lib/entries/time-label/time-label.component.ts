@@ -15,7 +15,6 @@ export class TimeLabelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.label, this.x, this.y);
   }
 
 }

@@ -4,7 +4,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HeatmapDataService } from './heatmap-data.service';
 import { makeHeatmapData, makeHeatmapDataInternal } from '../mocks/heatmap-data.mocks.spec';
 import { StartOrEndTimeInvalidError, EndBeforeStartTimeError, InvalidEntriesError } from '../errors-interface';
-import { HeatmapDataInternal } from 'heatmap-diagram/lib/heatmap-data-internal-interface';
+import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
 
 describe('Service: HeatmapData', () => {
   let service: HeatmapDataService;

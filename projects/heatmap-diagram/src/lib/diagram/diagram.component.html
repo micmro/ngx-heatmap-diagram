@@ -1,26 +1,17 @@
-
-
-<svg>
-  <ng-container *ngIf="data | async; let values;">
-    <g class="labels">
-      <g ngx-svg-legend-label
-        *ngFor="let label of values.labels; let i = index; trackBy: trackByFn"
-        [label]="label.name"
-        [x]="0"
-        [y]="i*rowHeigth"
-        [height]="rowHeigth-rowSpacing">
-      </g>
-    </g>
-    <g class="entries">
-      <g ngx-svg-entries
-        *ngFor="let entry of values.entries; let i = index; trackBy: trackByFn"
-        [entry]="entry"
-        [xIndex]="i"
-        [rowHeigth]="rowHeigth"
-        [columnWidth]="columnWidth"
-        [rowSpacing]="rowSpacing"
-        [columnSpacing]="columnSpacing">
-      </g>
-    </g>
-  </ng-container>
+<svg *ngIf="(data | async) as values;">
+  <g ngx-row-legend
+    [labels]="values.labels"
+    [rowHeigth]="rowHeigth"
+    [rowSpacing]="rowSpacing"
+    (widthUpdated)="setLegendWidth($event)">
+  </g>
+  <g ngx-svg-entries
+    *ngIf="hasLegendWidth"
+    [entries]="values.entries"
+    [rowHeigth]="rowHeigth"
+    [columnWidth]="columnWidth"
+    [rowSpacing]="rowSpacing"
+    [columnSpacing]="columnSpacing"
+    [xOffset]="legendWidth">
+  </g>
 </svg>

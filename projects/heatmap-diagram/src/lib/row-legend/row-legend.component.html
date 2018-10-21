@@ -1,0 +1,9 @@
+<svg:g class="labels" #legendLabel>
+  <svg:g ngx-svg-legend-label
+    *ngFor="let label of labels; let i = index; trackBy: trackByFn"
+    [label]="label.name"
+    [x]="0"
+    [y]="i*rowHeigth"
+    [height]="rowHeigth-rowSpacing">
+  </svg:g>
+</svg:g>
