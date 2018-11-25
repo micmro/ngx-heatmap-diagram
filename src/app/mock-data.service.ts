@@ -59,7 +59,7 @@ export class MockDataService {
     }
     base.endTime = new Date();
     base.entries.unshift(this.makeTimeSlice(base.labels, `Value ${emissions}`));
-    if (emissions > 22) {
+    if (emissions >= 22) {
       base.labels = [
         {
           ...base.labels[0],

@@ -30,7 +30,7 @@ export class HeatmapDiagramComponent implements OnInit {
   /** Color to use for the smalles value visible in the diagram (hex, rgb or rgba CSS color syntax) */
   @Input() minValueColor = '#f00';
   /** Color to use for the largest value visible in the diagram (hex, rgb or rgba CSS color syntax) */
-  @Input() maxValueColor = '#00f';
+  @Input() maxValueColor = '#0f0';
   /** Number of color-gradients to show between min and max value */
   @Input() colorSteps = 6;
   /** Height of a single row */

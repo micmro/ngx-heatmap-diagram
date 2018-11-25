@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { TimeSlice } from '../../heatmap-interface';
+import { TimeSliceInternal } from '../../heatmap-data-internal-interface';
 
 @Component({
   /* tslint:disable:component-selector */
@@ -10,7 +10,7 @@ import { TimeSlice } from '../../heatmap-interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntryComponent implements OnChanges {
-  @Input() entry: TimeSlice;
+  @Input() entry: TimeSliceInternal;
   @Input() xIndex: number;
   /** Time-stamp of the current TimeSlice */
   @Input() time: Date;
@@ -25,7 +25,7 @@ export class EntryComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    const maybeEntry = this.getChangeValue<TimeSlice>(changes, 'entry');
+    const maybeEntry = this.getChangeValue<TimeSliceInternal>(changes, 'entry');
     const maybeTime = this.getChangeValue<Date>(changes, 'time');
     const maybeRowHeigth =  this.getChangeValue<number>(changes, 'rowHeigth');
     const maybeRowSpacing =  this.getChangeValue<number>(changes, 'rowSpacing');
@@ -33,7 +33,7 @@ export class EntryComponent implements OnChanges {
     this.setLabel(maybeEntry, maybeTime);
   }
 
-  private setLabel(maybeEntry?: TimeSlice, maybeTime?: Date) {
+  private setLabel(maybeEntry?: TimeSliceInternal, maybeTime?: Date) {
     if (maybeEntry && maybeEntry.timeLabel !== undefined) {
       if (maybeEntry.timeLabel !== this.label) {
         this.label = maybeEntry.timeLabel;
@@ -49,7 +49,7 @@ export class EntryComponent implements OnChanges {
     }
   }
 
-  private setLabelY(maybeEntry?: TimeSlice, maybeRowHeigth?: number, maybeRowSpacing?: number) {
+  private setLabelY(maybeEntry?: TimeSliceInternal, maybeRowHeigth?: number, maybeRowSpacing?: number) {
     if (maybeEntry !== undefined) {
       this.labelY = maybeEntry.buckets.length *
         (maybeRowHeigth !== undefined ? maybeRowHeigth : this.rowHeigth) -

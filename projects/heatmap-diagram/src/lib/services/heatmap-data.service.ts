@@ -3,7 +3,9 @@ import { HeatmapData, TimeSlice } from '../heatmap-interface';
 import { StartOrEndTimeInvalidError, EndBeforeStartTimeError, InvalidEntriesError } from '../errors-interface';
 import { isArray } from 'util';
 import { ColorMapperService } from './color-mapper.service';
-import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
+import { HeatmapDataInternal, TimeSliceInternal } from '../heatmap-data-internal-interface';
+import { RGBA } from './color-mapper-interface';
+import { min } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class HeatmapDataService {
   ): HeatmapDataInternal {
     this.validateData(input);
     const sizedInput = this.sliceToMatchMaxTimeSlices(input, maxTimeSlices);
-    return  this.setColors(sizedInput, minValueColor, maxValueColor, colorSteps);
+    return this.setColors(sizedInput, minValueColor, maxValueColor, colorSteps);
   }
 
   /** Cuts off old times if `maxTimeSlices` is set */
@@ -48,13 +50,33 @@ export class HeatmapDataService {
       maxValueColor,
       colorSteps
     );
+    const stepValue = (extrems.max - extrems.min) / (colorSteps - 1);
 
     return {
       ...input,
+      entries: this.colorForEntries(input.entries, colors, extrems.min, stepValue),
       colors,
       minValue: extrems.min,
       maxValue: extrems.max
     };
+  }
+
+  colorForEntries(entries: TimeSlice[], colors: RGBA[], minValue: number, stepValue: number): TimeSliceInternal[] {
+    const resolveColor = (value: number): string => {
+      const color = colors[Math.round((value - minValue) / stepValue)];
+      return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+    };
+    return entries.map(entry => {
+      return {
+        ...entry,
+        buckets: entry.buckets.map(bucket => {
+          return {
+            ...bucket,
+            color: resolveColor(bucket.value)
+          };
+        })
+      };
+    });
   }
 
   private maxMin(entries: TimeSlice[]): { min: number, max: number } {

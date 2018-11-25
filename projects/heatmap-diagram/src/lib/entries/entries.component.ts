@@ -1,6 +1,5 @@
-import { formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { TimeSlice } from '../heatmap-interface';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TimeSliceInternal } from '../heatmap-data-internal-interface';
 
 @Component({
   /* tslint:disable:component-selector */
@@ -10,7 +9,7 @@ import { TimeSlice } from '../heatmap-interface';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class EntriesComponent {
-  @Input() entries: TimeSlice[];
+  @Input() entries: TimeSliceInternal[];
   @Input() rowHeigth: number;
   @Input() columnWidth: number;
   @Input() rowSpacing: number;

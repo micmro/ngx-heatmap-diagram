@@ -15,15 +15,15 @@ describe('Service: HeatmapData', () => {
 
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service).toBeTruthy() ;
   });
 
   it('maxTimeSlices works', () => {
     const data = [[1, 2], [0, 2], [1, 0], [1, 1]];
-    const input = makeHeatmapDataInternal(data);
-    const outputEntries = makeHeatmapData(data.slice(0, 2)).entries;
+    const input = makeHeatmapData(data);
+
     expect(service.validateAndFill(input, '#c00', '#00c', 3, 2)).toEqual(<HeatmapDataInternal>{
-      startTime: new Date(2012, 6, 3, 5, 3, 0),
+      startTime: new Date(2012, 6, 3, 5, 3, 0), // calculated based on slicing
       endTime: input.endTime, // same
       labels: input.labels, // same
       colors: [
@@ -31,9 +31,37 @@ describe('Service: HeatmapData', () => {
         { r: 102, g: 0, b: 102, a: 1 },
         { r: 0, g: 0, b: 204, a: 1 }
       ],
-      maxValue: input.maxValue,
-      minValue: input.minValue,
-      entries: outputEntries, // only last 2
+      maxValue: 2,
+      minValue: 0,
+      entries: [{
+        buckets: [
+          { ...input.entries[0].buckets[0], color: 'rgba(102, 0, 102, 1)' },
+          { ...input.entries[0].buckets[1], color: 'rgba(0, 0, 204, 1)' }
+        ],
+        timeLabel: input.entries[0].timeLabel
+      }, {
+        buckets: [
+          { ...input.entries[1].buckets[0], color: 'rgba(204, 0, 0, 1)' },
+          { ...input.entries[1].buckets[1], color: 'rgba(0, 0, 204, 1)' }
+        ],
+        timeLabel: input.entries[1].timeLabel
+      }], // only last 2
+    });
+  });
+
+  it('maxTimeSlices works (with makeHeatmapDataInternal mock-factory)', () => {
+    const data = [[1, 2], [0, 2], [1, 0], [1, 1]];
+    const input = makeHeatmapData(data);
+    const colors = [
+      { r: 204, g: 0, b: 0, a: 1 },
+      { r: 102, g: 0, b: 102, a: 1 },
+      { r: 0, g: 0, b: 204, a: 1 }
+    ];
+    const syntheyicOutput = makeHeatmapDataInternal(data, colors);
+    expect(service.validateAndFill(input, '#c00', '#00c', 3, 2)).toEqual(<HeatmapDataInternal>{
+      ...syntheyicOutput,
+      startTime: new Date(2012, 6, 3, 5, 3, 0), // calculated based on slicing
+      entries: syntheyicOutput.entries.slice(0, 2), // only last 2
     });
   });
 
@@ -53,7 +81,19 @@ describe('Service: HeatmapData', () => {
       ],
       maxValue: input.maxValue,
       minValue: input.minValue,
-      entries: outputEntries, // only last 2
+      entries: [{
+          buckets: [
+              { ...input.entries[0].buckets[0], color: 'rgba(85, 0, 63, 0.6)' },
+              { ...input.entries[0].buckets[1], color: 'rgba(0, 0, 50, 0.5)' }
+          ],
+          timeLabel: input.entries[0].timeLabel
+      }, {
+          buckets: [
+              { ...input.entries[1].buckets[0], color: 'rgba(255, 0, 90, 0.9)' },
+              { ...input.entries[1].buckets[1], color: 'rgba(0, 0, 50, 0.5)' }
+          ],
+          timeLabel: input.entries[1].timeLabel
+      }], // only last 2
     });
   });
 
