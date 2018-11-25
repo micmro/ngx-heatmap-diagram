@@ -44,20 +44,19 @@ export class HeatmapDataService {
   }
 
   private setColors(input: HeatmapData, minValueColor: string, maxValueColor: string, colorSteps: number): HeatmapDataInternal {
-    const extrems = this.maxMin(input.entries);
+    const extremes = this.maxMin(input.entries);
     const colors = this.colorMapperService.createMap(
       minValueColor,
       maxValueColor,
       colorSteps
     );
-    const stepValue = (extrems.max - extrems.min) / (colorSteps - 1);
-
+    const stepValue = (extremes.max - extremes.min) / (colorSteps - 1);
     return {
       ...input,
-      entries: this.colorForEntries(input.entries, colors, extrems.min, stepValue),
+      entries: this.colorForEntries(input.entries, colors, extremes.min, stepValue),
       colors,
-      minValue: extrems.min,
-      maxValue: extrems.max
+      minValue: extremes.min,
+      maxValue: extremes.max
     };
   }
 
@@ -81,11 +80,11 @@ export class HeatmapDataService {
 
   private maxMin(entries: TimeSlice[]): { min: number, max: number } {
     return entries.reduce((acc, curr) => {
-        curr.buckets.forEach(b => {
-          acc.max = Math.max(acc.max, b.value);
-          acc.min = Math.min(acc.min, b.value);
-        });
-        return acc;
+      curr.buckets.forEach(b => {
+        acc.max = Math.max(acc.max, b.value);
+        acc.min = Math.min(acc.min, b.value);
+      });
+      return acc;
     }, { min: 0, max: 0 });
   }
 
