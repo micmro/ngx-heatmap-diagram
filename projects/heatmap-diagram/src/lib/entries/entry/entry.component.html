@@ -1,13 +1,14 @@
 
-<svg:rect
-  *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn"
-  [attr.x]="(xIndex * columnWidth)"
-  [attr.y]="(yIndex * rowHeigth)"
-  [attr.width]="(columnWidth - columnSpacing)"
-  [attr.height]="(rowHeigth - rowSpacing)"
-  [style.fill]="bucket.color"
-  [title]="bucket.label">
-</svg:rect>
+<svg:g *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn">
+  <svg:rect
+    [style.fill]="bucket.color"
+    [attr.x]="(xIndex * columnWidth)"
+    [attr.y]="(yIndex * rowHeigth)"
+    [attr.width]="(columnWidth - columnSpacing)"
+    [attr.height]="(rowHeigth - rowSpacing)">
+  </svg:rect>
+  <svg:title>{{bucket.label}}</svg:title>
+</svg:g>
 <svg:g
   ngx-svg-time-label
   *ngIf="label"
