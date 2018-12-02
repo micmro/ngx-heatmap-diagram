@@ -15,5 +15,5 @@ export interface TimeSliceInternal extends TimeSlice {
 export interface BucketInternal extends Bucket {
   /** Color CSS string */
   color: string;
-
+  label: string;
 }

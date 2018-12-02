@@ -23,7 +23,7 @@ describe('Service: HeatmapData', () => {
     const input = makeHeatmapData(data);
 
     expect(service.validateAndFill(input, '#c00', '#00c', 3, 2)).toEqual(<HeatmapDataInternal>{
-      startTime: new Date(2012, 6, 3, 5, 3, 0), // calculated based on slicing
+      startTime: new Date(2012, 6, 3, 5, 2, 30), // calculated based on slicing
       endTime: input.endTime, // same
       labels: input.labels, // same
       colors: [
@@ -60,7 +60,7 @@ describe('Service: HeatmapData', () => {
     const syntheyicOutput = makeHeatmapDataInternal(data, colors);
     expect(service.validateAndFill(input, '#c00', '#00c', 3, 2)).toEqual(<HeatmapDataInternal>{
       ...syntheyicOutput,
-      startTime: new Date(2012, 6, 3, 5, 3, 0), // calculated based on slicing
+      startTime: new Date(2012, 6, 3, 5, 2, 30), // calculated based on slicing
       entries: syntheyicOutput.entries.slice(0, 2), // only last 2
     });
   });
@@ -70,7 +70,7 @@ describe('Service: HeatmapData', () => {
     const input = makeHeatmapDataInternal(data);
     const outputEntries = makeHeatmapData(data.slice(0, 2)).entries;
     expect(service.validateAndFill(input, 'rgba(255, 0, 90, 0.9)', 'rgba(0, 0, 50, 0.5)', 4, 2)).toEqual(<HeatmapDataInternal>{
-      startTime: new Date(2012, 6, 3, 5, 3, 0),
+      startTime: new Date(2012, 6, 3, 5, 2, 30),
       endTime: input.endTime, // same
       labels: input.labels, // same
       colors: [

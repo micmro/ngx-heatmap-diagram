@@ -1,5 +1,6 @@
 import { HeatmapData, TimeSlice, Bucket, Label } from '../heatmap-interface';
-import { HeatmapDataInternal } from '../heatmap-data-internal-interface';
+import { HeatmapDataInternal, TimeSliceInternal, BucketInternal } from '../heatmap-data-internal-interface';
+import { RGBA } from 'heatmap-diagram/lib/services/color-mapper-interface';
 
 export const heatmapDataFactory = (startTime: Date, endTime: Date, labels: string[] = [], entries: TimeSlice[] = []): HeatmapData => {
   return {
@@ -29,14 +30,14 @@ export const get3TimeSlice2RowBasicHeatmapDataInternal = (): HeatmapDataInternal
 
 /** Genetates one timeslice/min for as may values as inserted */
 export const makeHeatmapData = (values: number[][]): HeatmapData => {
-  const startTime = new Date(2012, 6, 3, 5, 1, 30);
+  const startTime = new Date(2012, 6, 3, 5, 0, 30);
   const endTime = new Date(2012, 6, 3, 5, values.length, 30);
   const labels: Label[] = values.length > 0
     ? values[0].map((row, rowIndex) => ({ name: `bucket row ${rowIndex}`}))
     : [ {name: 'bucket row a' }, { name: 'bucket row b' } ];
   const entries: TimeSlice[] = values.map((column, columnIndex) => {
     return makeTimeSlice(column.map((bucketValue, rowIndex) => {
-      return makeBucket(bucketValue, `buckat-label timeslice${columnIndex} row${rowIndex}`);
+      return makeBucket(bucketValue, `bucket-label timeslice${columnIndex} row${rowIndex}`);
     }), `TimeSlice ${columnIndex}`);
   });
   return {
@@ -47,17 +48,15 @@ export const makeHeatmapData = (values: number[][]): HeatmapData => {
   };
 };
 
-export const makeHeatmapDataInternal = (values: number[][]): HeatmapDataInternal => {
-  const startTime = new Date(2012, 6, 3, 5, 1, 30);
-  const endTime = new Date(2012, 6, 3, 5, values.length, 30);
-  const labels: Label[] = values.length > 0
-    ? values[0].map((row, rowIndex) => ({ name: `bucket row ${rowIndex}`}))
-    : [ {name: 'bucket row a' }, { name: 'bucket row b' } ];
-  const entries: TimeSlice[] = values.map((column, columnIndex) => {
-    return makeTimeSlice(column.map((bucketValue, rowIndex) => {
-      return makeBucket(bucketValue, `buckat-label timeslice${columnIndex} row${rowIndex}`);
-    }), `TimeSlice ${columnIndex}`);
-  });
+export const defaultColors: RGBA[] = [
+  {r: 0, g: 255, b: 0, a: 0},
+  {r: 127, g: 128, b: 0, a: 0},
+  {r: 255, g: 0, b: 0, a: 0}
+];
+
+/** Genetates one timesliceInternal/min for as may values as inserted */
+export const makeHeatmapDataInternal = (values: number[][], colors: RGBA[]= defaultColors): HeatmapDataInternal => {
+  const base = makeHeatmapData(values);
 
   const extremes = values.reduce((acc, val) => {
     val.forEach(v => {
@@ -73,28 +72,32 @@ export const makeHeatmapDataInternal = (values: number[][]): HeatmapDataInternal
     min: undefined, max: undefined
   } as { min: number, max: number });
 
+  const stepValue = (extremes.max - extremes.min) / (colors.length - 1);
+  const resolveColor = (value: number): string => {
+    const color = colors[Math.round((value - extremes.min) / stepValue)];
+    return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+  };
+
   return {
-    startTime,
-    endTime,
-    labels,
-    entries,
+    ...base,
+    entries: base.entries.map(timeSlice => ({
+      ...timeSlice,
+      buckets: timeSlice.buckets.map(
+        bucket => ({...bucket, color: resolveColor(bucket.value)} as BucketInternal)
+    )})),
     maxValue: extremes.max,
     minValue: extremes.min,
-    colors: [
-      {r: 0, g: 255, b: 0, a: 0},
-      {r: 127, g: 128, b: 0, a: 0},
-      {r: 255, g: 0, b: 0, a: 0}
-    ]
+    colors
   };
 };
 
-/** Helper to quickly generate a `TimeSlice` */
+/** Helper to quickly generate a `TimeSlice` (public API) */
 export const makeTimeSlice = (buckets: Bucket[], timeLabel?: string): TimeSlice => ({
   buckets,
   timeLabel
 });
 
-/** Helper to quickly generate a `Bucket` */
+/** Helper to quickly generate a `Bucket` (public API) */
 export const makeBucket = (value: number, label: string = 'a bucket-label'): Bucket => ({
   value,
   label

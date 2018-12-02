@@ -71,6 +71,7 @@ export class HeatmapDataService {
         buckets: entry.buckets.map(bucket => {
           return {
             ...bucket,
+            label: bucket.label || `${bucket.value}`,
             color: resolveColor(bucket.value)
           };
         })

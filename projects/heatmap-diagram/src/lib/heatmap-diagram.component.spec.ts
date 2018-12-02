@@ -36,7 +36,9 @@ describe('HeatmapDiagramComponent', () => {
 
   it('works with empty data', () => {
     component.data = of<HeatmapData>(makeHeatmapData([]));
-    fixture.detectChanges();
+    expect(() => {
+      fixture.detectChanges();
+    }).not.toThrow();
     expect(component).toBeTruthy();
   });
 
