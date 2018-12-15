@@ -128,16 +128,18 @@ describe('EntryComponent', () => {
     });
 
     it('update title', () => {
-      const time = new Date(1543768980414);
+      const time1 = new Date(1553768980414);
+      const time1Formatted = formatDate(time1, 'medium', 'en');
       const time2 = new Date(1543768980424);
       const time2Formatted = formatDate(time2, 'medium', 'en');
-      component.time = time;
+      let timeLabelInstance: TimeLabelComponent;
+      component.time = time1;
       fixture.detectChanges();
+      timeLabelInstance = fixture.debugElement.query(By.directive(EntryComponent)).componentInstance;
+      expect(timeLabelInstance.label).toBe(time1Formatted);
       component.time = time2;
       fixture.detectChanges();
-
-      const timeLabelFixture: DebugElement = fixture.debugElement.query(By.directive(EntryComponent));
-      const timeLabelInstance: TimeLabelComponent = timeLabelFixture.componentInstance;
+      timeLabelInstance = fixture.debugElement.query(By.directive(EntryComponent)).componentInstance;
       expect(timeLabelInstance.label).toBe(time2Formatted);
     });
   });
