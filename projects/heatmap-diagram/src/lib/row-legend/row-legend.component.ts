@@ -2,7 +2,6 @@ import { AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, Input
 import { Label } from '../heatmap-interface';
 
 @Component({
-  /* tslint:disable:component-selector */
   selector: '[ngx-row-legend]',
   templateUrl: './row-legend.component.html',
   styleUrls: ['./row-legend.component.css'],

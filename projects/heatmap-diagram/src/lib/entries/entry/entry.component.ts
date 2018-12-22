@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 import { TimeSliceInternal } from '../../heatmap-data-internal-interface';
 
 @Component({
-  /* tslint:disable:component-selector */
   selector: '[ngx-svg-entry]',
   templateUrl: './entry.component.html',
   styleUrls: ['./entry.component.css'],

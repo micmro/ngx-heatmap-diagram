@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
-  /* tslint:disable:component-selector */
   selector: '[ngx-svg-time-label]',
   templateUrl: './time-label.component.html',
   styleUrls: ['./time-label.component.css'],
