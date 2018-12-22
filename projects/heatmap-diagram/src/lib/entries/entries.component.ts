@@ -5,7 +5,7 @@ import { TimeSliceInternal } from '../heatmap-data-internal-interface';
   selector: '[ngx-svg-entries]',
   templateUrl: './entries.component.html',
   styleUrls: ['./entries.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntriesComponent {
   @Input() entries: TimeSliceInternal[];

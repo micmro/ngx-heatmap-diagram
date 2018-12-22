@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimeSliceInternal, BucketInternal } from '../../heatmap-data-internal-interface';
 import { TimeLabelComponent } from '../time-label/time-label.component';
@@ -17,7 +17,8 @@ import { formatDate } from '@angular/common';
     [columnWidth]="columnWidth"
     [rowSpacing]="rowSpacing"
     [columnSpacing]="columnSpacing"
-  ></g></svg>`
+  ></g></svg>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 class TestHostComponent {
   entry: TimeSliceInternal;
