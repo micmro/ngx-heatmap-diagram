@@ -1,4 +1,4 @@
-import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy, SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TimeSliceInternal, BucketInternal } from '../../heatmap-data-internal-interface';
 import { TimeLabelComponent } from '../time-label/time-label.component';
@@ -18,7 +18,7 @@ import { formatDate } from '@angular/common';
     [rowSpacing]="rowSpacing"
     [columnSpacing]="columnSpacing"
   ></g></svg>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 class TestHostComponent {
   entry: TimeSliceInternal;
@@ -107,6 +107,7 @@ describe('EntryComponent', () => {
     it('2 buckets', () => {
       expect(rects.length).toBe(2);
     });
+
     it(`each bucket with it's color`, () => {
       expect(rects[0].getAttribute('style')).toBe(`fill: ${buckets[0].color};`);
       expect(rects[1].getAttribute('style')).toBe(`fill: ${buckets[1].color};`);
