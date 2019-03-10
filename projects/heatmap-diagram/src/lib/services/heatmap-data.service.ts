@@ -1,11 +1,9 @@
-import { Injectable, Input } from '@angular/core';
-import { HeatmapData, TimeSlice } from '../heatmap-interface';
-import { StartOrEndTimeInvalidError, EndBeforeStartTimeError, InvalidEntriesError } from '../errors-interface';
-import { isArray } from 'util';
-import { ColorMapperService } from './color-mapper.service';
+import { Injectable } from '@angular/core';
+import { EndBeforeStartTimeError, InvalidEntriesError, StartOrEndTimeInvalidError } from '../errors-interface';
 import { HeatmapDataInternal, TimeSliceInternal } from '../heatmap-data-internal-interface';
+import { HeatmapData, TimeSlice } from '../heatmap-interface';
 import { RGBA } from './color-mapper-interface';
-import { min } from 'rxjs/operators';
+import { ColorMapperService } from './color-mapper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -97,7 +95,7 @@ export class HeatmapDataService {
     if (input.endTime.getTime() < input.startTime.getTime()) {
       throw EndBeforeStartTimeError;
     }
-    if (!isArray(input.entries)) {
+    if (!Array.isArray(input.entries)) {
       throw InvalidEntriesError;
     }
     return true;

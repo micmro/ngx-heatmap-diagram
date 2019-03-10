@@ -1,6 +1,8 @@
-import { HeatmapData, TimeSlice, Bucket, Label } from '../heatmap-interface';
-import { HeatmapDataInternal, TimeSliceInternal, BucketInternal } from '../heatmap-data-internal-interface';
-import { RGBA } from 'heatmap-diagram/lib/services/color-mapper-interface';
+/* tslint:disable:no-use-before-declare */
+
+import { RGBA } from '../services/color-mapper-interface';
+import { BucketInternal, HeatmapDataInternal } from '../heatmap-data-internal-interface';
+import { Bucket, HeatmapData, Label, TimeSlice } from '../heatmap-interface';
 
 export const heatmapDataFactory = (startTime: Date, endTime: Date, labels: string[] = [], entries: TimeSlice[] = []): HeatmapData => {
   return {
