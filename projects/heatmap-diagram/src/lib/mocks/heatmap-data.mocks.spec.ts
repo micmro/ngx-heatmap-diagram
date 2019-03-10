@@ -1,6 +1,6 @@
 /* tslint:disable:no-use-before-declare */
 
-import { RGBA } from 'heatmap-diagram/lib/services/color-mapper-interface';
+import { RGBA } from '../services/color-mapper-interface';
 import { BucketInternal, HeatmapDataInternal } from '../heatmap-data-internal-interface';
 import { Bucket, HeatmapData, Label, TimeSlice } from '../heatmap-interface';
 
