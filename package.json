@@ -9,6 +9,7 @@
     "build:prod": "ng build --prod",
     "build_example-app": "ng build ngx-heatmap-diagram-example-app",
     "test": "ng test heatmap-diagram",
+    "test:ci": "ng test heatmap-diagram --watch=false --browsers=ChromeHeadless",
     "test:generate-coverage": "ng test heatmap-diagram --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
