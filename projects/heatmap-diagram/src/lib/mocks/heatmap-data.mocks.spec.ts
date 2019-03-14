@@ -29,18 +29,21 @@ export const get3TimeSlice2RowBasicHeatmapDataInternal = (): HeatmapDataInternal
   return makeHeatmapDataInternal([[0, 1], [1, 2], [0, 3]]);
 };
 
-
 /** Genetates one timeslice/min for as may values as inserted */
 export const makeHeatmapData = (values: number[][]): HeatmapData => {
   const startTime = new Date(2012, 6, 3, 5, 0, 30);
   const endTime = new Date(2012, 6, 3, 5, values.length, 30);
-  const labels: Label[] = values.length > 0
-    ? values[0].map((row, rowIndex) => ({ name: `bucket row ${rowIndex}`}))
-    : [ {name: 'bucket row a' }, { name: 'bucket row b' } ];
+  const labels: Label[] =
+    values.length > 0
+      ? values[0].map((row, rowIndex) => ({ name: `bucket row ${rowIndex}` }))
+      : [{ name: 'bucket row a' }, { name: 'bucket row b' }];
   const entries: TimeSlice[] = values.map((column, columnIndex) => {
-    return makeTimeSlice(column.map((bucketValue, rowIndex) => {
-      return makeBucket(bucketValue, `bucket-label timeslice${columnIndex} row${rowIndex}`);
-    }), `TimeSlice ${columnIndex}`);
+    return makeTimeSlice(
+      column.map((bucketValue, rowIndex) => {
+        return makeBucket(bucketValue, `bucket-label timeslice${columnIndex} row${rowIndex}`);
+      }),
+      `TimeSlice ${columnIndex}`
+    );
   });
   return {
     startTime,
@@ -50,29 +53,29 @@ export const makeHeatmapData = (values: number[][]): HeatmapData => {
   };
 };
 
-export const defaultColors: RGBA[] = [
-  {r: 0, g: 255, b: 0, a: 0},
-  {r: 127, g: 128, b: 0, a: 0},
-  {r: 255, g: 0, b: 0, a: 0}
-];
+export const defaultColors: RGBA[] = [{ r: 0, g: 255, b: 0, a: 0 }, { r: 127, g: 128, b: 0, a: 0 }, { r: 255, g: 0, b: 0, a: 0 }];
 
 /** Genetates one timesliceInternal/min for as may values as inserted */
-export const makeHeatmapDataInternal = (values: number[][], colors: RGBA[]= defaultColors): HeatmapDataInternal => {
+export const makeHeatmapDataInternal = (values: number[][], colors: RGBA[] = defaultColors): HeatmapDataInternal => {
   const base = makeHeatmapData(values);
 
-  const extremes = values.reduce((acc, val) => {
-    val.forEach(v => {
-      if (acc.min === undefined) {
-        acc.min = v;
-        acc.max = v;
-      }
-      acc.min = Math.min(acc.min, v);
-      acc.max = Math.max(acc.max, v);
-    });
-    return acc;
-  }, {
-    min: undefined, max: undefined
-  } as { min: number, max: number });
+  const extremes = values.reduce(
+    (acc, val) => {
+      val.forEach(v => {
+        if (acc.min === undefined) {
+          acc.min = v;
+          acc.max = v;
+        }
+        acc.min = Math.min(acc.min, v);
+        acc.max = Math.max(acc.max, v);
+      });
+      return acc;
+    },
+    {
+      min: undefined,
+      max: undefined
+    } as { min: number; max: number }
+  );
 
   const stepValue = (extremes.max - extremes.min) / (colors.length - 1);
   const resolveColor = (value: number): string => {
@@ -84,9 +87,8 @@ export const makeHeatmapDataInternal = (values: number[][], colors: RGBA[]= defa
     ...base,
     entries: base.entries.map(timeSlice => ({
       ...timeSlice,
-      buckets: timeSlice.buckets.map(
-        bucket => ({...bucket, color: resolveColor(bucket.value)} as BucketInternal)
-    )})),
+      buckets: timeSlice.buckets.map(bucket => ({ ...bucket, color: resolveColor(bucket.value) } as BucketInternal))
+    })),
     maxValue: extremes.max,
     minValue: extremes.min,
     colors

@@ -11,9 +11,8 @@ describe('TimeLabelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeLabelComponent ]
-    })
-    .compileComponents();
+      declarations: [TimeLabelComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

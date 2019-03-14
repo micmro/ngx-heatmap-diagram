@@ -20,7 +20,7 @@ export class DiagramComponent {
   legendWidth = undefined;
   hasLegendWidth = false;
 
-  constructor() { }
+  constructor() {}
 
   setLegendWidth(legendWidth: number) {
     this.hasLegendWidth = true;

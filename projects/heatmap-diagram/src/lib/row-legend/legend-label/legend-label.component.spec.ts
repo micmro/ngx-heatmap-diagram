@@ -11,9 +11,8 @@ describe('LegendLabelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LegendLabelComponent ]
-    })
-    .compileComponents();
+      declarations: [LegendLabelComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

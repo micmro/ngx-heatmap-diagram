@@ -9,8 +9,7 @@ import { ColorMapperService } from './color-mapper.service';
   providedIn: 'root'
 })
 export class HeatmapDataService {
-
-  constructor(protected colorMapperService: ColorMapperService) { }
+  constructor(protected colorMapperService: ColorMapperService) {}
 
   validateAndFill(
     input: HeatmapData,
@@ -31,7 +30,7 @@ export class HeatmapDataService {
     }
 
     const interval = (input.endTime.getTime() - input.startTime.getTime()) / input.entries.length;
-    const startTime = new Date(input.endTime.getTime() - (maxTimeSlices * interval));
+    const startTime = new Date(input.endTime.getTime() - maxTimeSlices * interval);
     const entries = input.entries.slice(0, maxTimeSlices);
 
     return {
@@ -43,11 +42,7 @@ export class HeatmapDataService {
 
   private setColors(input: HeatmapData, minValueColor: string, maxValueColor: string, colorSteps: number): HeatmapDataInternal {
     const extremes = this.maxMin(input.entries);
-    const colors = this.colorMapperService.createMap(
-      minValueColor,
-      maxValueColor,
-      colorSteps
-    );
+    const colors = this.colorMapperService.createMap(minValueColor, maxValueColor, colorSteps);
     const stepValue = (extremes.max - extremes.min) / (colorSteps - 1);
     return {
       ...input,
@@ -77,14 +72,17 @@ export class HeatmapDataService {
     });
   }
 
-  private maxMin(entries: TimeSlice[]): { min: number, max: number } {
-    return entries.reduce((acc, curr) => {
-      curr.buckets.forEach(b => {
-        acc.max = Math.max(acc.max, b.value);
-        acc.min = Math.min(acc.min, b.value);
-      });
-      return acc;
-    }, { min: 0, max: 0 });
+  private maxMin(entries: TimeSlice[]): { min: number; max: number } {
+    return entries.reduce(
+      (acc, curr) => {
+        curr.buckets.forEach(b => {
+          acc.max = Math.max(acc.max, b.value);
+          acc.min = Math.min(acc.min, b.value);
+        });
+        return acc;
+      },
+      { min: 0, max: 0 }
+    );
   }
 
   /** Throws error if data is invalid */

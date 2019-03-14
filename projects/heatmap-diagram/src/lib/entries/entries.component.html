@@ -1,11 +1,12 @@
-<svg:g class="entries" [attr.transform]="'translate(' + (xOffset + columnSpacing ) + ')'">
-  <svg:g ngx-svg-entry
+<svg:g class="entries" [attr.transform]="'translate(' + (xOffset + columnSpacing) + ')'">
+  <svg:g
+    ngx-svg-entry
     *ngFor="let entry of entries; let i = index; trackBy: trackByFn"
     [entry]="entry"
     [xIndex]="i"
     [rowHeigth]="rowHeigth"
     [columnWidth]="columnWidth"
     [rowSpacing]="rowSpacing"
-    [columnSpacing]="columnSpacing">
-  </svg:g>
+    [columnSpacing]="columnSpacing"
+  ></svg:g>
 </svg:g>

@@ -8,21 +8,9 @@ import { ColorMapperService } from './services/color-mapper.service';
 import { HeatmapDataService } from './services/heatmap-data.service';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RowLegendModule,
-    EntriesModule
-  ],
-  declarations: [
-    HeatmapDiagramComponent,
-    DiagramComponent
-  ],
-  providers: [
-    ColorMapperService,
-    HeatmapDataService
-  ],
-  exports: [
-    HeatmapDiagramComponent
-  ]
+  imports: [CommonModule, RowLegendModule, EntriesModule],
+  declarations: [HeatmapDiagramComponent, DiagramComponent],
+  providers: [ColorMapperService, HeatmapDataService],
+  exports: [HeatmapDiagramComponent]
 })
-export class HeatmapDiagramModule { }
+export class HeatmapDiagramModule {}

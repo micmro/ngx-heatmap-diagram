@@ -1,20 +1,19 @@
-
 <svg:g *ngFor="let bucket of entry.buckets; let yIndex = index; trackBy: trackByFn">
   <svg:rect
     [style.fill]="bucket.color"
-    [attr.x]="(xIndex * columnWidth)"
-    [attr.y]="(yIndex * rowHeigth)"
-    [attr.width]="(columnWidth - columnSpacing)"
-    [attr.height]="(rowHeigth - rowSpacing)">
-  </svg:rect>
-  <svg:title>{{bucket.label}}</svg:title>
+    [attr.x]="xIndex * columnWidth"
+    [attr.y]="yIndex * rowHeigth"
+    [attr.width]="columnWidth - columnSpacing"
+    [attr.height]="rowHeigth - rowSpacing"
+  ></svg:rect>
+  <svg:title>{{ bucket.label }}</svg:title>
 </svg:g>
 <svg:g
   ngx-svg-time-label
   *ngIf="label"
   class="timeslice-label"
-  [attr.transform]="'translate(' + ((columnWidth - columnSpacing)/2) + ' ' + rowSpacing +')'"
-  [x]="(xIndex * columnWidth)"
+  [attr.transform]="'translate(' + (columnWidth - columnSpacing) / 2 + ' ' + rowSpacing + ')'"
+  [x]="xIndex * columnWidth"
   [y]="labelY"
-  [label]="label">
-</svg:g>
+  [label]="label"
+></svg:g>

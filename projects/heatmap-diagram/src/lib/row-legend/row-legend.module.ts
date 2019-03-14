@@ -4,10 +4,8 @@ import { LegendLabelComponent } from './legend-label/legend-label.component';
 import { RowLegendComponent } from './row-legend.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [RowLegendComponent, LegendLabelComponent],
-  exports: [ RowLegendComponent ]
+  exports: [RowLegendComponent]
 })
-export class RowLegendModule { }
+export class RowLegendModule {}

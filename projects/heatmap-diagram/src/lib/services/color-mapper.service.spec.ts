@@ -41,15 +41,15 @@ describe('ColorMapperService', () => {
     });
 
     it('parses rgb', () => {
-      expect(service.parseColor('rgb(1,255,0)')).toEqual({r: 1, g: 255, b: 0, a: 1 });
-      expect(service.parseColor('rgb(0,0,0)')).toEqual({r: 0, g: 0, b: 0, a: 1 });
-      expect(service.parseColor('rgb(255,255,255)')).toEqual({r: 255, g: 255, b: 255, a: 1 });
+      expect(service.parseColor('rgb(1,255,0)')).toEqual({ r: 1, g: 255, b: 0, a: 1 });
+      expect(service.parseColor('rgb(0,0,0)')).toEqual({ r: 0, g: 0, b: 0, a: 1 });
+      expect(service.parseColor('rgb(255,255,255)')).toEqual({ r: 255, g: 255, b: 255, a: 1 });
     });
 
     it('parses rgb with spaces', () => {
-      expect(service.parseColor('rgb( 1,255, 0 )')).toEqual({r: 1, g: 255, b: 0, a: 1 });
-      expect(service.parseColor('rgb(  1,255, 0    )')).toEqual({r: 1, g: 255, b: 0, a: 1 });
-      expect(service.parseColor('rgb( 1, 255, 0)')).toEqual({r: 1, g: 255, b: 0, a: 1 });
+      expect(service.parseColor('rgb( 1,255, 0 )')).toEqual({ r: 1, g: 255, b: 0, a: 1 });
+      expect(service.parseColor('rgb(  1,255, 0    )')).toEqual({ r: 1, g: 255, b: 0, a: 1 });
+      expect(service.parseColor('rgb( 1, 255, 0)')).toEqual({ r: 1, g: 255, b: 0, a: 1 });
     });
 
     it('parsing rgb fails with invalid input', () => {
@@ -59,16 +59,16 @@ describe('ColorMapperService', () => {
     });
 
     it('parses rgba', () => {
-      expect(service.parseColor('rgba(0,0,0,0)')).toEqual({r: 0, g: 0, b: 0, a: 0 });
-      expect(service.parseColor('rgba(0,0,0,0.0)')).toEqual({r: 0, g: 0, b: 0, a: 0 });
-      expect(service.parseColor('rgba(55,255,0,0.3)')).toEqual({r: 55, g: 255, b: 0, a: 0.3 });
-      expect(service.parseColor('rgba(0,0,0,1)')).toEqual({r: 0, g: 0, b: 0, a: 1 });
-      expect(service.parseColor('rgba(0,0,0,1.0)')).toEqual({r: 0, g: 0, b: 0, a: 1 });
+      expect(service.parseColor('rgba(0,0,0,0)')).toEqual({ r: 0, g: 0, b: 0, a: 0 });
+      expect(service.parseColor('rgba(0,0,0,0.0)')).toEqual({ r: 0, g: 0, b: 0, a: 0 });
+      expect(service.parseColor('rgba(55,255,0,0.3)')).toEqual({ r: 55, g: 255, b: 0, a: 0.3 });
+      expect(service.parseColor('rgba(0,0,0,1)')).toEqual({ r: 0, g: 0, b: 0, a: 1 });
+      expect(service.parseColor('rgba(0,0,0,1.0)')).toEqual({ r: 0, g: 0, b: 0, a: 1 });
     });
 
     it('rgba with spaces', () => {
-      expect(service.parseColor('rgba( 1,255, 0 , 0 )')).toEqual({r: 1, g: 255, b: 0, a: 0 });
-      expect(service.parseColor('rgba( 1, 255, 0, 0.5)')).toEqual({r: 1, g: 255, b: 0, a: 0.5 });
+      expect(service.parseColor('rgba( 1,255, 0 , 0 )')).toEqual({ r: 1, g: 255, b: 0, a: 0 });
+      expect(service.parseColor('rgba( 1, 255, 0, 0.5)')).toEqual({ r: 1, g: 255, b: 0, a: 0.5 });
     });
 
     it('parsing rgba fails with invalid alpha value', () => {
@@ -76,33 +76,32 @@ describe('ColorMapperService', () => {
       expect(() => service.parseColor('rgba(0,0,0,-0.1)')).toThrow(service.InvalidColorError);
       expect(() => service.parseColor('rgba(0,0,0,2)')).toThrow(service.InvalidColorError);
     });
-
   });
 
   describe('#createMap', () => {
     it('Creates steps from one color to another', () => {
       expect(service.createMap('rgb(10 ,8 ,40)', 'rgb(40, 11, 10)', 4)).toEqual([
-        {r: 10, g: 8, b: 40, a: 1},
-        {r: 20, g: 9, b: 30, a: 1},
-        {r: 30, g: 10, b: 20, a: 1},
-        {r: 40, g: 11, b: 10, a: 1},
+        { r: 10, g: 8, b: 40, a: 1 },
+        { r: 20, g: 9, b: 30, a: 1 },
+        { r: 30, g: 10, b: 20, a: 1 },
+        { r: 40, g: 11, b: 10, a: 1 }
       ]);
     });
 
     it('Creates steps from one color and alpha to another', () => {
       expect(service.createMap('rgb(10 ,8 ,40, 1)', 'rgb(40, 11, 10, 0.4)', 4)).toEqual([
-        {r: 10, g: 8, b: 40, a: 1},
-        {r: 20, g: 9, b: 30, a: 0.8},
-        {r: 30, g: 10, b: 20, a: 0.6},
-        {r: 40, g: 11, b: 10, a: 0.4, }
+        { r: 10, g: 8, b: 40, a: 1 },
+        { r: 20, g: 9, b: 30, a: 0.8 },
+        { r: 30, g: 10, b: 20, a: 0.6 },
+        { r: 40, g: 11, b: 10, a: 0.4 }
       ]);
     });
 
     it('Round floating steps', () => {
       expect(service.createMap('rgb(0 ,33 ,40)', 'rgb(1, 66, 10)', 3)).toEqual([
-        {r: 0, g: 33, b: 40, a: 1},
-        {r: 1, g: 50, b: 25, a: 1},
-        {r: 1, g: 66, b: 10, a: 1},
+        { r: 0, g: 33, b: 40, a: 1 },
+        { r: 1, g: 50, b: 25, a: 1 },
+        { r: 1, g: 66, b: 10, a: 1 }
       ]);
     });
   });

@@ -5,10 +5,8 @@ import { EntryComponent } from './entry/entry.component';
 import { TimeLabelComponent } from './time-label/time-label.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [EntriesComponent, EntryComponent, TimeLabelComponent],
   exports: [EntriesComponent]
 })
-export class EntriesModule { }
+export class EntriesModule {}

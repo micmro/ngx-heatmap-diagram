@@ -10,17 +10,18 @@ describe('EntriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntriesComponent, EntryComponent, TimeLabelComponent ]
-    })
-    .compileComponents();
+      declarations: [EntriesComponent, EntryComponent, TimeLabelComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EntriesComponent);
     component = fixture.componentInstance;
-    component.entries = [{
-      buckets: []
-    }];
+    component.entries = [
+      {
+        buckets: []
+      }
+    ];
     fixture.detectChanges();
   });
 

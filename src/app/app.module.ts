@@ -5,14 +5,9 @@ import { AppComponent } from './app.component';
 import { HeatmapDiagramModule } from 'heatmap-diagram';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HeatmapDiagramModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, HeatmapDiagramModule],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

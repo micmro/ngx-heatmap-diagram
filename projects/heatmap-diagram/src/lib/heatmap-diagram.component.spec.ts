@@ -17,8 +17,7 @@ describe('HeatmapDiagramComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HeatmapDiagramModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

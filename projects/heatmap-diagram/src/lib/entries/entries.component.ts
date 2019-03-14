@@ -15,7 +15,7 @@ export class EntriesComponent {
   @Input() columnSpacing: number;
   @Input() xOffset: number;
 
-  constructor() { }
+  constructor() {}
 
   trackByFn(index: number) {
     return index;

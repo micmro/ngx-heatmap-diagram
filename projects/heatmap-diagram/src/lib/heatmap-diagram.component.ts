@@ -14,12 +14,11 @@ import { HeatmapDataInternal } from './heatmap-data-internal-interface';
       [rowHeigth]="rowHeigth"
       [columnWidth]="columnWidth"
       [rowSpacing]="rowSpacing"
-      [columnSpacing]="columnSpacing">
+      [columnSpacing]="columnSpacing"
+    >
     </ngx-diagram>
   `,
-  styles: [
-    ':host { font-size: 12px; line-height: 12px; font-family: sans-serif; }'
-  ],
+  styles: [':host { font-size: 12px; line-height: 12px; font-family: sans-serif; }'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeatmapDiagramComponent implements OnInit {
@@ -42,24 +41,18 @@ export class HeatmapDiagramComponent implements OnInit {
   /** Horizontal spacing between columns (substracted from `columnWidth`) */
   @Input() columnSpacing = 5;
 
-
   innerData$: Observable<HeatmapDataInternal>;
 
-  constructor(private dataService: HeatmapDataService) {
-  }
+  constructor(private dataService: HeatmapDataService) {}
 
   ngOnInit() {
     if (!isObservable(this.data)) {
       throw InvaidDataParameterError;
     }
     this.innerData$ = this.data.pipe(
-      map(emission => this.dataService.validateAndFill(
-        emission,
-        this.minValueColor,
-        this.maxValueColor,
-        this.colorSteps,
-        this.maxTimeSlices
-      ))
+      map(emission =>
+        this.dataService.validateAndFill(emission, this.minValueColor, this.maxValueColor, this.colorSteps, this.maxTimeSlices)
+      )
     );
   }
 }

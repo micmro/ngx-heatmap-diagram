@@ -12,5 +12,5 @@ export class LegendLabelComponent {
   @Input() height: number;
   @Input() label: string;
 
-  constructor() { }
+  constructor() {}
 }

@@ -17,7 +17,7 @@ export class RowLegendComponent implements AfterViewChecked {
   /** keeps track of the current with of the legend */
   legendWidth = 0;
 
-  constructor() { }
+  constructor() {}
 
   trackByFn(index: number) {
     return index;
@@ -28,11 +28,11 @@ export class RowLegendComponent implements AfterViewChecked {
       const newWidth = this.legendLabel.nativeElement.getBBox().width;
       if (newWidth !== this.legendWidth) {
         this.legendWidth = newWidth;
-        setTimeout(() => { // wait for next change detection cycle
+        setTimeout(() => {
+          // wait for next change detection cycle
           this.widthUpdated.emit(newWidth);
         }, 0);
       }
     }
   }
-
 }

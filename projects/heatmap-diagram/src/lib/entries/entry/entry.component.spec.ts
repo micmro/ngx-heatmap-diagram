@@ -6,18 +6,22 @@ import { EntryComponent } from './entry.component';
 import { By } from '@angular/platform-browser';
 import { formatDate } from '@angular/common';
 
-
 /** Helper test component */
 @Component({
-  template: `<svg><g ngx-svg-entry
-    [entry]="entry"
-    [xIndex]="xIndex"
-    [time]="time"
-    [rowHeigth]="rowHeigth"
-    [columnWidth]="columnWidth"
-    [rowSpacing]="rowSpacing"
-    [columnSpacing]="columnSpacing"
-  ></g></svg>`,
+  template: `
+    <svg>
+      <g
+        ngx-svg-entry
+        [entry]="entry"
+        [xIndex]="xIndex"
+        [time]="time"
+        [rowHeigth]="rowHeigth"
+        [columnWidth]="columnWidth"
+        [rowSpacing]="rowSpacing"
+        [columnSpacing]="columnSpacing"
+      ></g>
+    </svg>
+  `,
   changeDetection: ChangeDetectionStrategy.Default
 })
 class TestHostComponent {
@@ -37,9 +41,8 @@ describe('EntryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntryComponent, TimeLabelComponent, TestHostComponent ]
-    })
-    .compileComponents();
+      declarations: [EntryComponent, TimeLabelComponent, TestHostComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -65,7 +68,7 @@ describe('EntryComponent', () => {
     const label = 'some-lable';
     const color = 'rgb(255, 0, 123)';
     component.entry = {
-      buckets: [{value: 1, color, label}],
+      buckets: [{ value: 1, color, label }]
     };
     component.rowHeigth = 30;
     component.columnWidth = 20;
@@ -85,11 +88,11 @@ describe('EntryComponent', () => {
 
   describe('renders', () => {
     const buckets: BucketInternal[] = [
-      {value: 1, color: 'rgb(255, 0, 123)', label: 'some-lable-1'},
-      {value: 2, color: 'rgb(0, 12, 55)', label: '2'}
+      { value: 1, color: 'rgb(255, 0, 123)', label: 'some-lable-1' },
+      { value: 2, color: 'rgb(0, 12, 55)', label: '2' }
     ];
     let rects: NodeListOf<SVGRectElement>;
-    let tiles:  NodeListOf<SVGTitleElement>;
+    let tiles: NodeListOf<SVGTitleElement>;
 
     beforeEach(() => {
       component.entry = { buckets };

@@ -8,6 +8,5 @@ import { MockDataService } from './mock-data.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(public mockData: MockDataService) {
-  }
+  constructor(public mockData: MockDataService) {}
 }

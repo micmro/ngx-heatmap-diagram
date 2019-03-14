@@ -21,13 +21,13 @@ export class EntryComponent implements OnChanges {
   labelY: number;
   label = '';
 
-  constructor() { }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges) {
     const maybeEntry = this.getChangeValue<TimeSliceInternal>(changes, 'entry');
     const maybeTime = this.getChangeValue<Date>(changes, 'time');
-    const maybeRowHeigth =  this.getChangeValue<number>(changes, 'rowHeigth');
-    const maybeRowSpacing =  this.getChangeValue<number>(changes, 'rowSpacing');
+    const maybeRowHeigth = this.getChangeValue<number>(changes, 'rowHeigth');
+    const maybeRowSpacing = this.getChangeValue<number>(changes, 'rowSpacing');
     this.setLabelY(maybeEntry, maybeRowHeigth, maybeRowSpacing);
     this.setLabel(maybeEntry, maybeTime);
   }
@@ -40,7 +40,7 @@ export class EntryComponent implements OnChanges {
       return;
     }
     if (maybeTime !== undefined) {
-      const newValue = this.label = formatDate(maybeTime, 'medium', 'en');
+      const newValue = (this.label = formatDate(maybeTime, 'medium', 'en'));
       if (this.label !== newValue) {
         this.label = newValue;
       }
@@ -50,18 +50,17 @@ export class EntryComponent implements OnChanges {
 
   private setLabelY(maybeEntry?: TimeSliceInternal, maybeRowHeigth?: number, maybeRowSpacing?: number) {
     if (maybeEntry !== undefined) {
-      this.labelY = maybeEntry.buckets.length *
-        (maybeRowHeigth !== undefined ? maybeRowHeigth : this.rowHeigth) -
+      this.labelY =
+        maybeEntry.buckets.length * (maybeRowHeigth !== undefined ? maybeRowHeigth : this.rowHeigth) -
         (maybeRowSpacing !== undefined ? maybeRowSpacing : this.rowSpacing);
     } else if (maybeRowHeigth !== undefined && this.entry) {
-      this.labelY = this.entry.buckets.length * maybeRowHeigth -
-      (maybeRowSpacing !== undefined ? maybeRowSpacing : this.rowSpacing);
+      this.labelY = this.entry.buckets.length * maybeRowHeigth - (maybeRowSpacing !== undefined ? maybeRowSpacing : this.rowSpacing);
     } else if (maybeRowSpacing !== undefined && this.entry) {
       this.labelY = this.entry.buckets.length * this.rowSpacing - maybeRowSpacing;
     }
   }
 
-  private getChangeValue<T>(changes: SimpleChanges, prop: (keyof EntryComponent)): T | undefined {
+  private getChangeValue<T>(changes: SimpleChanges, prop: keyof EntryComponent): T | undefined {
     if (changes[prop] === undefined || changes[prop].currentValue === changes[prop].previousValue) {
       return undefined;
     }
@@ -71,5 +70,4 @@ export class EntryComponent implements OnChanges {
   trackByFn(index: number) {
     return index;
   }
-
 }

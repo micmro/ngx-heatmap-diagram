@@ -5,13 +5,12 @@ import { RGBA } from './color-mapper-interface';
   providedIn: 'root'
 })
 export class ColorMapperService {
-
   private rgbaRegex = /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})(?:\s*,\s*(\d+(?:\.\d+)?)\s*)?\s*\)$/;
   private hexRegex = /^(?:#)([0-9a-f]{3,6})$/i;
 
   InvalidColorError = TypeError('Invalid color input, must be a valid Hex, RGB or RGBA CSS color');
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Creates an array of colors based on the `steps` between `colorStart` and `colorEnd`
@@ -22,12 +21,14 @@ export class ColorMapperService {
   createMap(colorStart: string, colorEnd: string, steps: number): RGBA[] {
     const a = this.parseColor(colorStart);
     const b = this.parseColor(colorEnd);
-    return new Array(steps).fill(undefined).map((val, i): RGBA => ({
-      r: this.getStep(a.r, b.r, i, steps),
-      g: this.getStep(a.g, b.g, i, steps),
-      b: this.getStep(a.b, b.b, i, steps),
-      a: this.getStep(a.a, b.a, i, steps, true)
-    }));
+    return new Array(steps).fill(undefined).map(
+      (val, i): RGBA => ({
+        r: this.getStep(a.r, b.r, i, steps),
+        g: this.getStep(a.g, b.g, i, steps),
+        b: this.getStep(a.b, b.b, i, steps),
+        a: this.getStep(a.a, b.a, i, steps, true)
+      })
+    );
   }
 
   /**
@@ -67,7 +68,7 @@ export class ColorMapperService {
       return a;
     }
     const diff = b - a;
-    const step = a + (diff / (steps - 1) * index);
+    const step = a + (diff / (steps - 1)) * index;
     if (isAlpha) {
       return Math.round(step * 10) / 10;
     }
